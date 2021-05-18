@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /*
 double getTemperature(); skal returnere temperatur fra en temperaturmåler
@@ -32,50 +33,40 @@ Skal sende det til HTTP REST endpoint
 
  */
 public class Main {
-
-
-    static int temp = 0;
-
     public static void main(String[] args) {
 
-        String temperatureTxt = "temperature.txt";
-        readFile(new File(temperatureTxt));
 
-        System.out.println(readFile(new File(temperatureTxt)));
+        File temperatures = new File("temperature.txt");
+        ArrayList<Integer> values = readFile(new File(String.valueOf(temperatures)));
+
+        System.out.println(values);
 
 
     }
-    public static ArrayList<String> readFile(File filnavn) {
-        // Metoden leser innholdet i filen linje for linje
-        // Thread.sleep(100); gjør at programmet venter 100 ms før det kjører videre
-        // metoden returnerer hele txt filen lest
-        ArrayList<String> valueList = null;
 
-        try {
-            File temperature = new File("temperature.txt");
-            FileReader readTemp = new FileReader(temperature);
-            BufferedReader br = new BufferedReader(readTemp);
+        public static ArrayList<Integer> readFile(File fileName) {
+            // Metoden leser innholdet i filen linje for linje
+            // Thread.sleep(100); gjør at programmet venter 100 ms før det kjører videre
+            // metoden returnerer hele txt filen lest i en String ArrayList
+            ArrayList<Integer> valueList = null;
+            try {
+                FileReader readTemp = new FileReader(fileName);
+                Scanner line = new Scanner(readTemp);
+                valueList = new ArrayList<Integer>();
 
-            String line;
-            valueList = new ArrayList<String>();
+                // Mens det finnes en linje, og den inneholder noe, så skal linjen bli lagt til i en arraylist
+                while (line.hasNextInt()) {
+                    valueList.add(line.nextInt());
+                }
 
-            while ((line = br.readLine()) != null) {
-                valueList.add(line);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            return valueList;
         }
-        return valueList;
-    }
-
-
-
-
-
 }
+
+
 
 
 
