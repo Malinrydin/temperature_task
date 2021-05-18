@@ -1,5 +1,5 @@
 import java.io.*;
-import java.util.Timer;
+import java.util.ArrayList;
 
 /*
 double getTemperature(); skal returnere temperatur fra en temperaturmåler
@@ -33,38 +33,53 @@ Skal sende det til HTTP REST endpoint
  */
 public class Main {
 
+
+    static int temp = 0;
+
     public static void main(String[] args) {
 
-        String temperaturTxt = "temperature.txt";
-        readFile(new File(temperaturTxt));
+        String temperatureTxt = "temperature.txt";
+        readFile(new File(temperatureTxt));
+
+        System.out.println(readFile(new File(temperatureTxt)));
 
 
     }
+    public static ArrayList<String> readFile(File filnavn) {
+        // Metoden leser innholdet i filen linje for linje
+        // Thread.sleep(100); gjør at programmet venter 100 ms før det kjører videre
+        // metoden returnerer hele txt filen lest
+        ArrayList<String> valueList = null;
 
-    // Metoden leser innholdet i filen linje for linje
-    // Thread.sleep(100); gjør at programmet venter 100 ms før det kjører videre
-    public static void readFile(File filnavn){
+        try {
+            File temperature = new File("temperature.txt");
+            FileReader readTemp = new FileReader(temperature);
+            BufferedReader br = new BufferedReader(readTemp);
 
-            try {
-                File temperature = new File("temperature.txt");
-                FileReader readTemp = new FileReader(temperature);
-                BufferedReader br = new BufferedReader(readTemp);
+            String line;
+            valueList = new ArrayList<String>();
 
-                String line;
-
-                while ((line = br.readLine()) != null){
-                    System.out.println(line);
-                    Thread.sleep(100);
-                }
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+            while ((line = br.readLine()) != null) {
+                valueList.add(line);
             }
-        // Lest ferdig
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return valueList;
     }
+
+
 
 
 
 }
+
+
+
+
 
 
 
