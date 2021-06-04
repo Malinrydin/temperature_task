@@ -83,14 +83,17 @@ public class Main {
 
                 // 1200 er to minutter, bruker 100 under testing for å sjekke at det stemmer. 100 er 10 sek.
                 if (count == 100){
+                        // Finner min og max i Arraylisten
                     double min = Collections.min(values);
                     double max = Collections.max(values);
                     System.out.println(
                             "----------" +
                             "\nMinimumverdi: " + min +
                             "\nMaksimumverdi: " + max +
+                                    // Henter gjennomsnitt fra metoden lenger ned
                             "\nGjennomsnitt: " + average(values) +
                             "\n----------");
+                        // Setter count til 0, og tømmer listen for verdier
                     count = 0;
                     values.clear();
                 }
@@ -103,14 +106,18 @@ public class Main {
         return valueRead;
     }
 
+        // Metoden finner gjennomsnittet av verdiene i Arraylisten
     public static double average(ArrayList<Double> getTempValues) {
         double total = 0;
         if (!getTempValues.isEmpty()) {
+                // Legger sammen verdiene i arraylisten
             for (double i : getTempValues) {
                 total += i;
             }
+                // Regner ut gjennomsnittet
             return total / getTempValues.size();
         }
+            // Returnerer gjennomsnittet
         return total;
     }
 }
