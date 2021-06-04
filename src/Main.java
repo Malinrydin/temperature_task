@@ -68,8 +68,8 @@ public class Main {
             while (line.hasNextDouble() && line.hasNext() ) {
                     // legger verdien i linjen i en variabel
                 valueRead = line.nextDouble();
-                    // Finner LSB i stepsize (3300 / 4096), ganger denne med verdien som er lest for å finne
-                    // volten tilhørende verdien.
+                    // Finner least significant bit i stepsize (3300 / 4096), ganger denne med verdien som er lest
+                    // for å finne volten som tilhører verdien.
                 voltIn = valueRead * (stepsize);
                     // Finner temperaturen ved å bruke voltIn og dele denne på Vref/stegMinMax
                 temp = (voltIn / mVprsteg) - 50;
@@ -86,6 +86,7 @@ public class Main {
                         // Finner min og max i Arraylisten
                     double min = Collections.min(values);
                     double max = Collections.max(values);
+                    // Printer ut dataen for å sjekke at ting stemmer
                     System.out.println(
                             "----------" +
                             "\nMinimumverdi: " + min +
